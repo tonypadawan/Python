@@ -7,49 +7,59 @@ secret_number = random.randint(1, 100)
 attempts = 0  # Tentativas
 lifes = 0
 points = 500
-test_level = 1
 
+
+def verification_values(value):
+   num_test = 1
+
+   if value == 'K':
+        print(f'Tentativa {attempts} de {lifes} \n')
+
+        while num_test == 1:
+            value = int(input('Chuta um número entre 1 e 100: '))
+
+            if value <= 0 or value > 100:
+                print('Chute inválido! Valor informado é zero ou negativo! \n')
+            else:
+                num_test = 0
+                return value
+        
+
+   elif value == 'L':
+       while num_test == 1:
+           value = int(input('Escolha a dificuldade: [ 1 - Fácil, 2 - Normal, 3 - Difícil ] : '))
+
+           if value < 1 or value > 3:
+                print('Valor inválido! Escolha entre 1 e 3! \n')
+            
+           else:
+                num_test = 0
+                return value
+       
 
 print('+-' * 17)
 print(' Welcome ao jogo da Adivinhação!')
 print('+-' * 17 )
 print()
 
-while test_level == 1:
-    level = int(input('Escolha a dificuldade: [ 1 - Fácil, 2 - Normal, 3 - Difícil ] : '))
+level = verification_values('L')
 
-    if level < 1 or level > 3:
-        print('Valor invalido! Escolha entre 1 e 3. \n')
+if level == 1:
+    lifes = 12
+       
+elif level == 2:
+    lifes = 8
+        
+else:
+    lifes = 5
 
-    elif level == 1:
-        lifes = 12
-        test_level = 0
-
-    elif level == 2:
-        lifes = 8
-        test_level = 0
-
-    else:
-        lifes = 5
-        test_level = 0
 
 os.system('clt' if os.name == 'nt' else 'clear')
 
 
 for attempts in range(1, lifes + 1):
 
-    invalid_number = 1
-    kick_number = 0
-
-    print(f'Tentativa {attempts} de {lifes} \n')
-
-    while invalid_number == 1:
-        kick_number = int(input('Chuta um número entre 1 e 100: '))
-
-        if kick_number <= 0 or kick_number > 100:
-            print('Valor inválido! O número é NEGATIVO ou maior que 100!')
-        else:
-            invalid_number = 0
+    kick_number = verification_values('K')
 
     print()
 
